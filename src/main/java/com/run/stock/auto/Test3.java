@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.downloader.selenium.SeleniumDownloader;
+//import us.codecraft.webmagic.downloader.selenium.SeleniumDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 
@@ -28,15 +28,15 @@ public class Test3 implements PageProcessor {
     public void process(Page page) {
         WebDriver driver = new ChromeDriver();
         driver.get("http://quote.eastmoney.com/center/gridlist.html#hs_a_board");
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(driver.getPageSource());
-//        System.out.println(driver.getWindowHandles());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(driver.getPageSource());
+        System.out.println(driver.getWindowHandles());
         ArrayList<String> list=new ArrayList<String>();
-        DownloadFile.TextToFile("a.html", driver.getPageSource());
+        DownloadFile.TextToFile("a.html", page.getHtml().get());
 
         list.add(driver.getWindowHandle());
         driver.findElement(By.xpath("//a[@data-index=\"2\"]")).click();
@@ -80,7 +80,7 @@ public class Test3 implements PageProcessor {
         System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
         Spider.create(new Test3())
                 .addUrl("http://quote.eastmoney.com/center/gridlist.html#hs_a_board")
-                .setDownloader(new SeleniumDownloader("/usr/local/bin/chromedriver"))
+//                .setDownloader(new SeleniumDownloader("/usr/local/bin/chromedriver"))
                 .thread(5)
                 .run();
     }

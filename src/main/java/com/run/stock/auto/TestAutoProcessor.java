@@ -5,10 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.downloader.selenium.SeleniumDownloader;
+import us.codecraft.webmagic.downloader.HttpClientDownloader;
+//import us.codecraft.webmagic.downloader.selenium.SeleniumDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 
@@ -20,26 +22,31 @@ public class TestAutoProcessor implements PageProcessor {
 
 
     public void process(Page page) {
-        WebDriver driver = new ChromeDriver();
-        driver.get("http://quote.eastmoney.com/center/gridlist.html#hs_a_board");
-        WebElement webElement ;
-        StringBuffer stringBuffer = new StringBuffer();
+        //创建无Chrome无头参数
+//        ChromeOptions chromeOptions=new ChromeOptions();
+//        chromeOptions.addArguments("-headless");
 
-
-            for ( int i=1 ; i<= 222; i++ ) {
-                driver.findElement(By.xpath("//a[@data-index="+ i + "]")).click();
-                webElement = driver.findElement(By.id("table_wrapper-table"));
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                stringBuffer.append(webElement.getText());
-            }
-
-
-        DownloadFile.TextToFile("test.txt", stringBuffer.toString());
-        driver.close();
+        //创建Drive实例
+//        WebDriver driver = new ChromeDriver(chromeOptions);
+//        driver.get("http://quote.eastmoney.com/center/gridlist.html#hs_a_board");
+//        WebElement webElement ;
+//        StringBuffer stringBuffer = new StringBuffer();
+//
+//
+//            for ( int i=1 ; i<= 2; i++ ) {
+//                driver.findElement(By.xpath("//a[@data-index="+ i + "]")).click();
+//                webElement = driver.findElement(By.id("table_wrapper-table"));
+//                try {
+//                    Thread.sleep(3000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                stringBuffer.append(webElement.getText());
+//            }
+//
+//
+//        DownloadFile.TextToFile("test.txt", stringBuffer.toString());
+//        driver.close();
     }
 
     public Site getSite() {
@@ -49,9 +56,10 @@ public class TestAutoProcessor implements PageProcessor {
     public static void main(String[] args) {
         System.setProperty("selenuim_config", "/Users/linxiaoxiao/workspaces/java/stock/src/main/resources/config.ini");
         System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
+        HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         Spider.create(new TestAutoProcessor())
                 .addUrl("http://quote.eastmoney.com/center/gridlist.html#hs_a_board")
-                .setDownloader(new SeleniumDownloader("/usr/local/bin/chromedriver"))
+                .setDownloader(httpClientDownloader)
                 .thread(5)
                 .run();
     }

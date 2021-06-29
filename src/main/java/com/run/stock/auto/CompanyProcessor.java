@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.downloader.selenium.SeleniumDownloader;
+
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 
@@ -57,12 +57,12 @@ public class CompanyProcessor implements PageProcessor {
     }
 
     public static void main(String[] args) {
-        System.setProperty("selenuim_config", "/Users/linxiaoxiao/workspaces/java/stock/src/main/resources/config.ini");
-        System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
-        Spider.create(new CompanyProcessor())
-                .addUrl("http://www.sse.com.cn/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=600000")
-                .setDownloader(new SeleniumDownloader("/usr/local/bin/chromedriver"))
-                .thread(5)
-                .run();
+//        System.setProperty("selenuim_config", "/Users/linxiaoxiao/workspaces/java/stock/src/main/resources/config.ini");
+//        System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
+//        Spider.create(new CompanyProcessor())
+//                .addUrl("http://www.sse.com.cn/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=600000")
+//                .setDownloader(new SeleniumDownloader("/usr/local/bin/chromedriver"))
+//                .thread(5)
+//                .run();
     }
 }
